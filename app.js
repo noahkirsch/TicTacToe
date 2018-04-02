@@ -2,6 +2,8 @@ window.onload = function() {
 	var turn = 0;			//reset will make this 0
 	var gameOver = false;
 	var clickedNode = null;
+	var xWins = 0;
+	var oWins = 0;
 
 	var isValidMove = function() {
 		console.log(typeof clickedNode.childNodes[0].nodeValue);
@@ -25,6 +27,16 @@ window.onload = function() {
 			}
 			displayWinner();
 			turn++;
+		}
+	}
+
+	var updateScoreboard = function(winner) {
+		if (winner === 'X') {
+			xWins++;
+			document.getElementById('scoreboard_x').innerHTML = ("X Wins: " + xWins);
+		} else {
+			oWins++;
+			document.getElementById('scoreboard_o').innerHTML = ("O Wins: " + oWins);
 		}
 	}
 
@@ -92,6 +104,10 @@ window.onload = function() {
 			} else {
 				document.getElementById('status').innerHTML = "O's Turn";
 			}
+		}
+
+		if (gameOver) {
+			updateScoreboard(test);
 		}
 	}
 
