@@ -1,21 +1,31 @@
 window.onload = function() {
 	var turn = 0;			//reset will make this 0
 	var gameOver = false;
+	var clickedNode = null;
 
 	var isValidMove = function() {
+		console.log(typeof clickedNode.childNodes[0].nodeValue);
 		if (gameOver) {
 			alert("The game is over, hit reset to play again!");
+			return false;
+		} else if (clickedNode.childNodes[0].nodeValue !== '[ ]') {
+			alert("This square is taken, pick another square");
+			return false;
 		}
+		return true;
 	}
 
 	var displayMark = function() {
-		if (turn % 2 === 0) {
-			document.getElementById(this.id).innerHTML = "[X]";
-		} else {
-			document.getElementById(this.id).innerHTML = "[O]";
+		clickedNode = this;
+		if (isValidMove()) {
+			if (turn % 2 === 0) {
+				document.getElementById(this.id).innerHTML = "[X]";
+			} else {
+				document.getElementById(this.id).innerHTML = "[O]";
+			}
+			displayWinner();
+			turn++;
 		}
-		displayWinner();
-		turn++;
 	}
 
 	var resetGame = function() {
@@ -26,6 +36,7 @@ window.onload = function() {
 			elements[i].innerHTML = '[ ]';
 		}
 		document.getElementById('status').innerHTML = "X Goes First";
+		clickedNode = null;
 	}
 
 	var getBoardState = function() {
@@ -72,6 +83,8 @@ window.onload = function() {
 		} else if (board[2] === test && board[4] === test && board[6] === test) {
 			document.getElementById('status').innerHTML = (test + " Wins!");
 			gameOver = true;
+		} else if (turn === 8) {
+			alert('Tie, hit reset to begin a new game!');
 		} else {
 			//Display whose turn it is
 			if (turn % 2 === 0) {
@@ -96,12 +109,5 @@ window.onload = function() {
 	document.getElementById("space_2-1").addEventListener("click", displayMark);
 	document.getElementById("space_2-2").addEventListener("click", displayMark);
 
-	//Click event
-	//call displayMark
-
-
-	//Edge Case: Prevent people from clicking something that has already been changed
-	//No more moves after game is done
-	//display ties
 
 }
