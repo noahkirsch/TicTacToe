@@ -7,26 +7,48 @@
 		<script src="app.js"></script>
 	</head>
 
-	<body style="background-color:#192C47; color:#FFFFFF;">
+	<style>
+	body {
+		background-color: #192C47;
+		color: #FFFFFF;
+	}
+
+	.grid-item {
+		background-color: #0093C6; 
+		color: #F7DC1B; 
+		border: 5px solid #192C47;
+		height: 50px;
+		width: 50px;
+		font-size: 30px;
+		text-align: center;
+	}
+
+	.grid-container {
+		display: inline-grid;
+		grid-template-columns: auto auto auto;
+	}
+
+	button {
+		width: 180px;
+		height: 22px;
+	}
+	</style>
+
+	<body>
 		<h1>Tic Tac Toe!</h1>
 		<h2 id = "status">X Goes First</h2>
 		<button id="reset">Reset Game</button>
-		<div>
-			<div>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 100px; width: 100px;" id = "space_0-0">[ ]</span>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 20px;" id = "space_0-1">[ ]</span>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 20px;" id = "space_0-2">[ ]</span>
-			</div>
-			<div>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 20px;" id = "space_1-0">[ ]</span>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 20px;" id = "space_1-1">[ ]</span>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 20px;" id = "space_1-2">[ ]</span>
-			</div>
-			<div>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 20px;" id = "space_2-0">[ ]</span>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 20px;" id = "space_2-1">[ ]</span>
-				<span style="background-color:#0093C6; color:#F7DC1B; height: 20px;" id = "space_2-2">[ ]</span>
-			</div>	
+		<br>
+		<div class="grid-container">
+			<div class="grid-item" id="space_0-0"> </div>
+			<div class="grid-item" id="space_0-1"> </div>
+			<div class="grid-item" id="space_0-2"> </div>
+			<div class="grid-item" id="space_1-0"> </div>
+			<div class="grid-item" id="space_1-1"> </div>
+			<div class="grid-item" id="space_1-2"> </div>
+			<div class="grid-item" id="space_2-0"> </div>
+			<div class="grid-item" id="space_2-1"> </div>
+			<div class="grid-item" id="space_2-2"> </div>
 		</div>	
 	</body>
 

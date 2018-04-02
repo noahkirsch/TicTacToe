@@ -8,7 +8,7 @@ window.onload = function() {
 		if (gameOver) {
 			alert("The game is over, hit reset to play again!");
 			return false;
-		} else if (clickedNode.childNodes[0].nodeValue !== '[ ]') {
+		} else if (clickedNode.childNodes[0].nodeValue !== ' ') {
 			alert("This square is taken, pick another square");
 			return false;
 		}
@@ -19,9 +19,9 @@ window.onload = function() {
 		clickedNode = this;
 		if (isValidMove()) {
 			if (turn % 2 === 0) {
-				document.getElementById(this.id).innerHTML = "[X]";
+				document.getElementById(this.id).innerHTML = "X";
 			} else {
-				document.getElementById(this.id).innerHTML = "[O]";
+				document.getElementById(this.id).innerHTML = "O";
 			}
 			displayWinner();
 			turn++;
@@ -31,20 +31,20 @@ window.onload = function() {
 	var resetGame = function() {
 		turn = 0;
 		gameOver = false;
-		var elements = document.getElementsByTagName('span');
+		var elements = document.getElementsByClassName('grid-item');
 		for (var i = 0; i < elements.length; i++) {
-			elements[i].innerHTML = '[ ]';
+			elements[i].innerHTML = ' ';
 		}
 		document.getElementById('status').innerHTML = "X Goes First";
 		clickedNode = null;
 	}
 
 	var getBoardState = function() {
-		var elements = document.getElementsByTagName('span');
+		var elements = document.getElementsByClassName('grid-item');
 		var boardState = [];
 
 		for (var i = 0; i < elements.length; i++) {
-			boardState.push(elements[i].childNodes[0].nodeValue.slice(1,2));
+			boardState.push(elements[i].childNodes[0].nodeValue);
 		}	
 		return boardState;
 	}
