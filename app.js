@@ -4,7 +4,7 @@ window.onload = function() {
 	var clickedNode = null;
 	var xWins = 0;
 	var oWins = 0;
-	var previousWinner;
+	var previousWinner = 'X';
 	var firstPlayer = 'X';
 	var secondPlayer = 'O';
 
@@ -29,6 +29,75 @@ window.onload = function() {
 			}
 			displayWinner();
 			turn++;
+
+			document.getElementsByClassName('switch')[0].childNodes[3].checked;
+			if (document.getElementsByClassName('switch')[0].childNodes[3].checked && !gameOver) {
+				rotateBoard();
+				gravity();
+			}
+		}
+	}
+
+	var rotateBoard = function() {
+		var board = getBoardState();
+		var firstStep = [3, 0, 1, 6, 4, 2, 7, 8, 5];
+		var secondStep = [6, 3, 0, 7, 4, 1, 8, 5, 2];
+
+		var elements = document.getElementsByClassName('grid-item');
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].innerHTML = board[firstStep[i]];
+		}
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].innerHTML = board[secondStep[i]];
+		}
+	}
+
+	var gravity = function() {
+		var board = getBoardState();
+		var column = 0;
+		var testBoard = [board[0], board[3], board[6]];
+		var newBoard = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+
+		while (column < 3) {
+			if (column === 1) {
+				testBoard = [board[1], board[4], board[7]];
+			} if (column === 2) {
+				testBoard = [board[2], board[5], board[8]];
+			}
+
+			if (testBoard[0] !== ' ' && testBoard[1] !== ' ') {
+				testBoard[2] = testBoard[1];
+				testBoard[1] = testBoard[0];
+				testBoard[0] = ' ';
+			} else if (testBoard[0] !== ' ' && testBoard[2] !== ' ') {
+				testBoard[1] = testBoard[0];
+				testBoard[0] = ' ';
+			} else if (testBoard[1] !== ' ') {
+				testBoard[2] = testBoard[1];
+				testBoard[1] = ' ';
+			} else if (testBoard[0] !== ' ') {
+				testBoard[2] = testBoard[0];
+				testBoard[0] = ' ';
+			}
+			if (column === 0) {
+				newBoard[0] = testBoard[0];
+				newBoard[3] = testBoard[1];
+				newBoard[6] = testBoard[2];
+			} else if (column === 1) {
+				newBoard[1] = testBoard[0];
+				newBoard[4] = testBoard[1];
+				newBoard[7] = testBoard[2];
+			} else if (column === 2) {
+				newBoard[2] = testBoard[0];
+				newBoard[5] = testBoard[1];
+				newBoard[8] = testBoard[2];
+			}
+			column++;
+		}
+
+		var elements = document.getElementsByClassName('grid-item');
+		for (var i = 0; i < elements.length; i++) {
+			elements[i].innerHTML = newBoard[i];
 		}
 	}
 
