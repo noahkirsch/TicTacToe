@@ -1,17 +1,19 @@
 window.onload = function() {
-	var turn = 0;			//reset will make this 0
+	var turn = 0;
 	var gameOver = false;
 	var clickedNode = null;
 	var xWins = 0;
 	var oWins = 0;
+	var previousWinner;
+	var firstPlayer = 'X';
+	var secondPlayer = 'O';
 
 	var isValidMove = function() {
-		console.log(typeof clickedNode.childNodes[0].nodeValue);
 		if (gameOver) {
 			alert("The game is over, hit reset to play again!");
 			return false;
 		} else if (clickedNode.childNodes[0].nodeValue !== ' ') {
-			alert("This square is taken, pick another square");
+			alert("This square is taken, pick another square.");
 			return false;
 		}
 		return true;
@@ -21,9 +23,9 @@ window.onload = function() {
 		clickedNode = this;
 		if (isValidMove()) {
 			if (turn % 2 === 0) {
-				document.getElementById(this.id).innerHTML = "X";
+				document.getElementById(this.id).innerHTML = firstPlayer;
 			} else {
-				document.getElementById(this.id).innerHTML = "O";
+				document.getElementById(this.id).innerHTML = secondPlayer;
 			}
 			displayWinner();
 			turn++;
@@ -43,11 +45,19 @@ window.onload = function() {
 	var resetGame = function() {
 		turn = 0;
 		gameOver = false;
+		firstPlayer = previousWinner;
+
+		if (firstPlayer === 'X') {
+			secondPlayer = 'O';
+		} else {
+			secondPlayer = 'X';
+		}
+
 		var elements = document.getElementsByClassName('grid-item');
 		for (var i = 0; i < elements.length; i++) {
 			elements[i].innerHTML = ' ';
 		}
-		document.getElementById('status').innerHTML = "X Goes First";
+		document.getElementById('status').innerHTML = (previousWinner + " Goes First");
 		clickedNode = null;
 	}
 
@@ -66,9 +76,9 @@ window.onload = function() {
 		var test;
 
 		if (turn % 2 === 0) {
-			test = 'X';
+			test = firstPlayer;
 		} else {
-			test = 'O';
+			test = secondPlayer;
 		}
 
 		if (board[0] === test && board[1] === test && board[2] === test) {
@@ -108,6 +118,7 @@ window.onload = function() {
 
 		if (gameOver) {
 			updateScoreboard(test);
+			previousWinner = test;
 		}
 	}
 
